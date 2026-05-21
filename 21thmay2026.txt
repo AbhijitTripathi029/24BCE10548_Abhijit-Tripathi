@@ -1,0 +1,57 @@
+CREATE TABLE products (
+    pid int primary key,
+    pname varchar(100) NOT NULL,
+    cid int, 
+    #FOREIGN KEY (cid) REFERENCES category(cid) on delete cascade
+    FOREIGN KEY (cid) REFERENCES category(cid) on update cascade
+);
+desc products;
+select * from category;
+
+delete from category where cid=101;
+update category set cid =113 where cname ='electronics';
+
+insert into products values (504,'Power Bank Samsung',112);
+
+select * from products;
+
+show databases;
+use vitcampus;
+show tables in vitcampus;
+select * from worker;
+
+select first_name ,department ,salary from worker where department ='admin' order by salary desc;
+
+#group by 
+
+select count(worker_id) from worker where department ='admin' or department='HR' ;
+
+select department ,count(department) from worker group by department order by department asc  ;
+
+select department ,count(department) from worker group by department having count(department)>3 order by department asc  ;
+
+#select first_name, max(salary) from worker having max(salary) ;
+
+
+select * from worker limit 3 offset 3;
+create table topper(id int );
+insert into topper value (1),(2);
+select * from topper ;
+select worker_id ,first_name ,department from worker 
+where worker_id in (select id from topper);
+
+SELECT * FROM WORKER ; 	
+
+select sum(salary), department from worker group by department order by sum(salary) asc limit 2;
+select first_name, department, salary from worker
+where department = 'admin' order by salary desc limit 1 offset 1;
+
+select first_name, department, salary
+from worker w1
+where salary = (
+    select distinct salary
+    from worker w2
+    where w1.department = w2.department
+    order by salary desc
+    limit 1 offset 1
+);
