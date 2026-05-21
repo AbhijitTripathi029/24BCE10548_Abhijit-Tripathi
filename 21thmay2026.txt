@@ -25,6 +25,7 @@ select first_name ,department ,salary from worker where department ='admin' orde
 #group by 
 
 select count(worker_id) from worker where department ='admin' or department='HR' ;
+Select department, max(salary) from worker group by department;
 
 select department ,count(department) from worker group by department order by department asc  ;
 
